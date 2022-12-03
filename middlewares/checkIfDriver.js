@@ -1,5 +1,5 @@
 module.exports = (req, res, next) => {
-  if (isLoggedIn && userType === "Driver") {
+  if (userType === "Driver") {
     next();
   } else {
     res.redirect("/");
