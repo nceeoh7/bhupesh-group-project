@@ -2,7 +2,7 @@ const Appointment = require('../models/Appointment');
 const { login, loginUser, logout } = require('./loginController');
 const { signup, signupUser } = require('./signupController');
 const { getG2, postG2 } = require('./g2Controller');
-const { getG, postG } = require('./gController');
+const { getG } = require('./gController');
 const {
   examiner,
   userDetail,

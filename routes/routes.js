@@ -35,9 +35,9 @@ router.post('/signup', checkIfNotLoggedIn, signupUser);
 router.get('/logout', checkIfAuthenticated, logout);
 router.get('/appointments', checkIfAdmin, getAppointments);
 router.post('/saveAppointment', checkIfAdmin, saveAppointment);
-router.get('/examiner', examiner);
-router.get('/userDetail/:id', userDetail);
-router.post('/examinerFeedback', updateWithExaminerFeedback);
-router.get('/candidateResult', candidateResult);
+router.get('/candidateResult', checkIfAdmin, candidateResult);
+router.get('/examiner', checkIfExaminer, examiner);
+router.get('/userDetail/:id', checkIfExaminer, userDetail);
+router.post('/examinerFeedback', checkIfExaminer, updateWithExaminerFeedback);
 
 module.exports = router;
