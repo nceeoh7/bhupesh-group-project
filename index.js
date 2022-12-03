@@ -7,6 +7,7 @@ const router = require("./routes/routes");
 const expressSession = require("express-session");
 const flash = require("connect-flash");
 const setUserRole = require("./middlewares/setUserType");
+const monogStore = require('connect-mongo');
 
 const app = new express();
 global.userType = "";
