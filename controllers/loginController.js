@@ -1,5 +1,5 @@
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
+const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
 const login = (req, res) => {
   let username, password;
@@ -7,11 +7,11 @@ const login = (req, res) => {
   if (req.session.isInvalidLogin) {
     req.session.isInvalidLogin = false;
     hasError = true;
-    const loginData = req.flash("loginData")[0];
+    const loginData = req.flash('loginData')[0];
     username = loginData.username;
     password = loginData.password;
   }
-  res.render("login", { hasError, username, password });
+  res.render('login', { hasError, username, password });
 };
 
 const loginUser = async (req, res) => {
@@ -23,20 +23,21 @@ const loginUser = async (req, res) => {
     if (isSame) {
       req.session.userId = user._id;
       req.session.userType = user.userType;
-      return res.redirect("/");
+      return res.redirect('/');
     }
   }
   req.session.isInvalidLogin = true;
-  req.flash("loginData", req.body);
-  return res.redirect("/login");
+  req.flash('loginData', req.body);
+  return res.redirect('/login');
 };
 
 const logout = (req, res) => {
   req.session.userType = '';
   req.session.userId = '';
-  req.session.destroy();
-  userType = "";
-  res.redirect("/");
+  req.session.cookie.maxAge = 0;
+  delete req.session;
+  userType = '';
+  res.redirect('/');
 };
 
 module.exports = {
