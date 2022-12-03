@@ -21,6 +21,7 @@ app.use(
     store: monogStore.create({
       mongoUrl: process.env.MONGO_SESSION_URL,
       autoRemove: true,
+      ttl: 60,
       unset: 'destroy',
     }),
   })
