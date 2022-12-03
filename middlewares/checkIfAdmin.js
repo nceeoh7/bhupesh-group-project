@@ -1,5 +1,5 @@
 module.exports = (req, res, next) => {
-  if (userType === "Admin") {
+  if (isLoggedIn && userType === "Admin") {
     next();
   } else {
     res.redirect("/");

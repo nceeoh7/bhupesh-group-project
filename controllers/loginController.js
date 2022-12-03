@@ -23,6 +23,7 @@ const loginUser = async (req, res) => {
     if (isSame) {
       req.session.userId = user._id;
       req.session.userType = user.userType;
+      isLoggedIn = true;
       return res.redirect('/');
     }
   }
@@ -35,8 +36,9 @@ const logout = (req, res) => {
   req.session.userType = '';
   req.session.userId = '';
   req.session.cookie.maxAge = 0;
-  delete req.session;
+  req.session.destroy();
   userType = '';
+  isLoggedIn = false;
   res.redirect('/');
 };
 

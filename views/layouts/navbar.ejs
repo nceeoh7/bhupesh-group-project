@@ -8,15 +8,15 @@
   </label>
   <ul class="menu">
     <li><a href="/">DASHBOARD</a></li>
-    <% if (userType === "Driver") {%>
+    <% if (isLoggedIn && userType === "Driver") {%>
     <li><a href="/g2">G2_TEST</a></li>
     <li><a href="/g">G_TEST</a></li>
-    <% } %> <% if (userType === "Admin") {%>
+    <% } %> <% if (isLoggedIn && userType === "Admin") {%>
     <li><a href="/appointments">APPOINTMENTS</a></li>
     <li><a href="/candidateResult">RESULTS</a></li>
-    <% } %> <% if (userType === "Examiner") {%>
+    <% } %> <% if (isLoggedIn && userType === "Examiner") {%>
     <li><a href="/examiner">EXAMINER</a></li>
-    <% } %> <% if (!userType) {%>
+    <% } %> <% if (!isLoggedIn) {%>
     <li><a href="/signup">REGISTER</a></li>
     <li><a href="/login">LOGIN</a></li>
     <% } else {%>
