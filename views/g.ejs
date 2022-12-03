@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <%- include("layouts/header") -%>
+
+  <body>
+    <!-- Navigation contents -->
+    <%- include("layouts/navbar") -%>
+
+    <!-- background image is populated here -->
+    <header class="hero g_test_hero" id="home">
+      <h1>G Test</h1>
+    </header>
+
+    <main>
+      <!-- button to move the page at the the top -->
+      <button id="go_to_top" title="Go to top">^</button>
+
+      <% if((user?.result != null || user?.result != undefined) && user.comment
+      && user?.testType == 'G') { %> <% if(user.result) { %>
+      <section class="success_result">
+        <p>Congratulations! You have passed your test.</p>
+        <p><%- user.comment %></p>
+      </section>
+      <% } else { %>
+      <section class="failure_result">
+        <p>Sorry! You have failed your test.</p>
+        <p><%- user.comment %></p>
+      </section>
+      <% }} %>
+
+      <section id="g_form_container">
+        <% const { _id, firstName, lastName, licenseNumber, age, dob } = user;
+        const formattedDOB = new Date(dob).toISOString().substring(0, 10); const
+        { make, model, year, plateNumber} = user.carDetails;%>
+        <form id="g2_form" method="POST" action="/g2">
+          <fieldset id="g_personal_fieldset">
+            <input type="hidden" name="id" id="id" value="<%= _id%>" />
+            <legend>Personal Information</legend>
+            <label for="firstName"
+              >First Name <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              placeholder="First Name"
+              value="<%= firstName %>"
+              disabled
+            />
+
+            <label for="lastName"
+              >Last Name <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              placeholder="Last Name"
+              value="<%= lastName %>"
+              disabled
+            />
+
+            <label for="licenseNumber"
+              >License Number <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="licenseNumber"
+              name="licenseNumber"
+              placeholder="XXXXXXXX"
+              maxlength="8"
+              pattern="[a-zA-Z0-90-9]{8}"
+              value="<%= licenseNumber %>"
+              disabled
+            />
+
+            <label for="age">Age <span class="required">*</span></label>
+            <input
+              type="number"
+              id="age"
+              name="age"
+              placeholder="Age"
+              value="<%= age %>"
+              disabled
+            />
+
+            <label for="dob">DOB <span class="required">*</span></label>
+            <input
+              type="date"
+              id="dob"
+              name="dob"
+              placeholder="Date of Birth"
+              value="<%= formattedDOB %>"
+              disabled
+            />
+          </fieldset>
+
+          <fieldset id="g2_car_fieldset">
+            <legend>Car Information</legend>
+
+            <label for="make">Make <span class="required">*</span></label>
+            <input
+              type="text"
+              id="make"
+              name="make"
+              placeholder="Make"
+              value="<%= make %>"
+              required
+            />
+
+            <label for="model">Model <span class="required">*</span></label>
+            <input
+              type="text"
+              id="model"
+              name="model"
+              placeholder="Model"
+              value="<%= model %>"
+              required
+            />
+
+            <label for="year">Year <span class="required">*</span></label>
+            <input
+              type="number"
+              id="year"
+              name="year"
+              placeholder="Year"
+              pattern="[0-9]{4}"
+              value="<%= year %>"
+              required
+            />
+
+            <label for="plateNumber"
+              >Plate Number <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="plateNumber"
+              name="plateNumber"
+              placeholder="Plate Number"
+              value="<%= plateNumber %>"
+              required
+            />
+          </fieldset>
+
+          <input
+            type="hidden"
+            id="appointments"
+            name="appointments"
+            value="<%= appointments %>"
+          />
+          <fieldset id="appointment_form_fieldset">
+            <label for="appointmentDate"
+              >Appointment Date <span class="required">*</span></label
+            >
+            <input type="date" id="appointmentDate" name="appointmentDate"
+            min="2000-01-02" max="2050-12-30" required value="<%=
+            user?.appointmentId?.appointmentDate?.toISOString().split("T")[0]%>"
+            />
+
+            <label for="appointmentTime"
+              >Appointment Time <span class="required">*</span></label
+            >
+            <select
+              id="appointmentTime"
+              name="appointmentTime"
+              value="<%= user?.appointmentId?.appointmentTime%>"
+              required
+              disabled
+            >
+              <option name="0">Select Timeslot</option>
+              <option id="9:00" name="9:00">9:00 am</option>
+              <option id="9:30" name="9:30">9:30 am</option>
+              <option id="10:00" name="10:00">10:00 am</option>
+              <option id="10:30" name="10:30">10:30 am</option>
+              <option id="11:00" name="11:00">11:00 am</option>
+              <option id="11:30" name="11:30">11:30 am</option>
+              <option id="12:00" name="12:00">12:00 pm</option>
+              <option id="12:30" name="12:30">12:30 pm</option>
+              <option id="1:00" name="1:00">1:00 pm</option>
+              <option id="1:30" name="1:30">1:30 pm</option>
+              <option id="2:00" name="2:00">2:00 pm</option>
+            </select>
+          </fieldset>
+
+          <!-- This field will be populated from js if there are errors when submitting the form. -->
+          <% if (errors.length > 0) {%>
+          <div id="validation_errors"><%= errors[0] %></div>
+          <% } %>
+
+          <label for="submit"></label>
+          <input type="submit" name="update" value="Update" id="g2_update" />
+        </form>
+      </section>
+    </main>
+
+    <%- include("layouts/footer") -%> <%- include("layouts/scripts") -%>
+  </body>
+</html>

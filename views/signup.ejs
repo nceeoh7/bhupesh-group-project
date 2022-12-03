@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <%- include("layouts/header") -%>
+
+  <body>
+    <!-- Navigation contents -->
+    <%- include("layouts/navbar") -%>
+
+    <!-- background image is populated here -->
+    <header class="hero login_hero" id="home">
+      <h1>Sign Up</h1>
+    </header>
+
+    <main>
+      <!-- button to move the page at the the top -->
+      <button id="go_to_top" title="Go to top">^</button>
+
+      <section id="signup_form_container">
+        <form id="signup_form" method="POST" action="/signup">
+          <fieldset id="signup_form_fieldset">
+            <label for="username"
+              >Username <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Username (3 or more characters)"
+              pattern="[a-zA-Z0-9.]{3,}"
+              value="<%= username %>"
+              required
+            />
+
+            <label for="password"
+              >Password <span class="required">*</span></label
+            >
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              value="<%= password %>"
+              required
+            />
+
+            <label for="confirm_password"
+              >Confirm Password <span class="required">*</span></label
+            >
+            <input
+              type="password"
+              id="confirm_password"
+              name="confirm_password"
+              placeholder="Password"
+              value="<%= confirmPassword %>"
+              required
+            />
+
+            <label for="userType"
+              >User Type <span class="required">*</span></label
+            >
+            <select name="userType" id="userType" value="<%= selectedUserType %>">
+              <option name="Driver">Driver</option>
+              <option name="Examiner">Examiner</option>
+              <option name="Admin">Admin</option>
+            </select>
+
+            <!-- This field will be populated from js if there are errors when submitting the form. -->
+            <% if (errors && errors.length > 0) {%>
+            <div id="errors">
+              <% for(let i=0;i<errors.length;i++){ %> 
+                <p><%= errors[i] %></p>
+              <%}%>
+            </div>
+            <% } %>
+
+            <label for="submit"></label>
+            <input type="submit" name="submit" id="login_submit" value="REGISTER" />
+            <p>Already have an account? <a href="/login">Login</a></p>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+
+    <%- include("layouts/footer") -%> <%- include("layouts/scripts") -%>
+  </body>
+</html>

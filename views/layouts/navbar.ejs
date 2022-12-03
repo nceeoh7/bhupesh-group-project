@@ -1,0 +1,26 @@
+<section class="top-nav">
+  <div>
+    <a href="/"><img src="/images/logo.png" alt="logo" class="logo" /></a>
+  </div>
+  <input id="menu-toggle" type="checkbox" />
+  <label class="menu-button-container" for="menu-toggle">
+    <div class="menu-button"></div>
+  </label>
+  <ul class="menu">
+    <li><a href="/">DASHBOARD</a></li>
+    <% if (userType === "Driver") {%>
+    <li><a href="/g2">G2_TEST</a></li>
+    <li><a href="/g">G_TEST</a></li>
+    <% } %> <% if (userType === "Admin") {%>
+    <li><a href="/appointments">APPOINTMENTS</a></li>
+    <li><a href="/candidateResult">RESULTS</a></li>
+    <% } %> <% if (userType === "Examiner") {%>
+    <li><a href="/examiner">EXAMINER</a></li>
+    <% } %> <% if (!userType) {%>
+    <li><a href="/signup">REGISTER</a></li>
+    <li><a href="/login">LOGIN</a></li>
+    <% } else {%>
+    <li><a href="/logout">LOGOUT</a></li>
+    <% } %>
+  </ul>
+</section>

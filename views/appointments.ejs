@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <%- include("layouts/header") %>
+
+  <body>
+    <!-- Navigation contents -->
+    <%- include("layouts/navbar") %>
+
+    <!-- background image is populated here -->
+    <header class="hero login_hero" id="home">
+      <h1>Appointments</h1>
+    </header>
+
+    <main>
+      <!-- button to move the page at the the top -->
+      <button id="go_to_top" title="Go to top">^</button>
+      <section id="appointment_form_container">
+        <form id="appointment_form" action="/saveAppointment" method="POST">
+          <input
+            type="hidden"
+            id="appointments"
+            name="appointments"
+            value="<%= appointments %>"
+          />
+          <fieldset id="appointment_form_fieldset">
+            <label for="appointmentDate"
+              >Appointment Date <span class="required">*</span></label
+            >
+            <input
+              type="date"
+              id="appointmentDate"
+              name="appointmentDate"
+              min="2000-01-02"
+              max="2050-12-30"
+              required
+            />
+
+            <label for="appointmentTime"
+              >Appointment Time <span class="required">*</span></label
+            >
+            <select
+              id="appointmentTime"
+              name="appointmentTime"
+              required
+              disabled
+            >
+              <option name="0">Select Timeslot</option>
+              <option id="9:00" name="9:00">9:00 am</option>
+              <option id="9:30" name="9:30">9:30 am</option>
+              <option id="10:00" name="10:00">10:00 am</option>
+              <option id="10:30" name="10:30">10:30 am</option>
+              <option id="11:00" name="11:00">11:00 am</option>
+              <option id="11:30" name="11:30">11:30 am</option>
+              <option id="12:00" name="12:00">12:00 pm</option>
+              <option id="12:30" name="12:30">12:30 pm</option>
+              <option id="1:00" name="1:00">1:00 pm</option>
+              <option id="1:30" name="1:30">1:30 pm</option>
+              <option id="2:00" name="2:00">2:00 pm</option>
+            </select>
+            <label for="submit"></label>
+            <input
+              type="submit"
+              name="submit"
+              id="appointment_submit"
+              value="Save"
+              disabled
+            />
+          </fieldset>
+        </form>
+      </section>
+    </main>
+
+    <%- include("layouts/footer") %> <%- include("layouts/scripts") %>
+  </body>
+</html>

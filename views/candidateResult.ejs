@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <%- include("layouts/header") %>
+
+  <body>
+    <!-- Navigation contents -->
+    <%- include("layouts/navbar") %>
+
+    <!-- background image is populated here -->
+    <header class="hero login_hero" id="home">
+      <h1>Candidate Results</h1>
+    </header>
+
+    <main>
+      <!-- button to move the page at the the top -->
+      <button id="go_to_top" title="Go to top">^</button>
+
+      <div class="candidate_result_filter">
+        <p>View Candidates:</p>
+        <a href="/candidateResult">All</a>
+        <a href="/candidateResult?type=Pass">Passed</a>
+        <a href="/candidateResult?type=Fail">Failed</a>
+      </div>
+
+      <section id="candidate_results_container">
+        <p class="th">S.N.</p>
+        <p class="th">Name</p>
+        <p class="th">DOB</p>
+        <p class="th">Test Type</p>
+        <p class="th">License Number</p>
+        <p class="th">Status</p>
+
+        <% if(filteredUsers.length > 0) { filteredUsers.forEach((user, index) =>
+        {%>
+        <p><%=index+1%></p>
+        <p><%=`${user.firstName} ${user.lastName}`%></p>
+        <p><%=user.dob.toISOString().split('T')[0]%></p>
+        <p><%=user.testType%></p>
+        <p><%=user.licenseNumber%></p>
+        <p><%= user.result == true ? 'Pass' : 'Fail' %></p>
+        <% })} else { %>
+        <p class="no_results">No Users Yet!</p>
+        <% } %>
+      </section>
+    </main>
+
+    <%- include("layouts/footer") %> <%- include("layouts/scripts") %>
+  </body>
+</html>
