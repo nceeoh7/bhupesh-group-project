@@ -32,9 +32,9 @@ const loginUser = async (req, res) => {
 };
 
 const logout = (req, res) => {
-  req.session.destroy();
   req.session.userType = '';
   req.session.userId = '';
+  req.session.destroy();
   userType = "";
   res.redirect("/");
 };
