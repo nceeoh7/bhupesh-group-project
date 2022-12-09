@@ -37,6 +37,7 @@ const logout = async (req, res) => {
   req.session.userType = "";
   
   await req.session.save();
+  await req.session.destroy();
 
   res.redirect("/")
 
