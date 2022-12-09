@@ -7,7 +7,7 @@ const router = require("./routes/routes");
 const expressSession = require("express-session");
 const flash = require("connect-flash");
 const setUserRole = require("./middlewares/setUserType");
-const monogStore = require("connect-mongo");
+const mongoStore = require("connect-mongo");
 
 const app = new express();
 global.userType = "";
@@ -17,8 +17,7 @@ const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGO_DB_URL);
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.log(process.env);
-    console.log(error);
+
     process.exit(1);
   }
 };
@@ -28,9 +27,9 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    store: monogStore.create({
+    store: mongoStore.create({
       mongoUrl: process.env.MONGO_SESSION_URL,
-      autoRemove: true,
+      autoRemove: "native",
     }),
   })
 );
