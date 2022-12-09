@@ -17,7 +17,6 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    unset: 'destroy',
     store: monogStore.create({
       mongoUrl: process.env.MONGO_SESSION_URL,
       autoRemove: true,
