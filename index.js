@@ -12,6 +12,17 @@ const monogStore = require('connect-mongo');
 const app = new express();
 global.userType = '';
 
+
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_DB_URL);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
+
 app.use(
   expressSession({
     secret: process.env.SESSION_SECRET,
@@ -33,17 +44,6 @@ app.set('view engine', 'ejs');
 app.use(router);
 
 const PORT = 5000;
-
-const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.MONGO_DB_URL);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
-}
-
 
 //Connect to the database before listening
 connectDB().then(() => {
