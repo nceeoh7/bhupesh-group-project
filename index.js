@@ -30,10 +30,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(router);
-mongoose.connect(process.env.MONGO_DB_URL, { useNewUrlParser: true });
 
 const PORT = 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server Running at port ${PORT}`);
-});
+mongoose.connect(process.env.MONGO_DB_URL, { useNewUrlParser: true }).then(() => {
+  app.listen(PORT, () => {
+      console.log("Listening for requests");
+  })
+})
+
+
+
