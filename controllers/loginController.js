@@ -23,6 +23,7 @@ const loginUser = async (req, res) => {
     if (isSame) {
       req.session.userId = user._id;
       req.session.userType = user.userType;
+      await req.session.save();
       return res.redirect('/');
     }
   }
@@ -32,7 +33,12 @@ const loginUser = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  req.session.destroy(() => res.redirect("/"));
+  req.session.userId = "";
+  req.session.userType = "";
+  
+  await req.session.save();
+
+  res.redirect("/")
 
 };
 
