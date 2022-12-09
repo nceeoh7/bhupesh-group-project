@@ -3,6 +3,8 @@ module.exports = (req, res, next) => {
     console.log("User Type Middleware");
     console.log(req.session);
     userType = req.session.userType;
+  }else{
+    userType =""
   }
   next();
 };
