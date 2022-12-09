@@ -23,6 +23,7 @@ app.use(
     }),
   })
 );
+
 app.use(flash());
 app.use('*', setUserRole);
 app.use(express.static('public'));
@@ -33,11 +34,22 @@ app.use(router);
 
 const PORT = 5000;
 
-mongoose.connect(process.env.MONGO_DB_URL, { useNewUrlParser: true }).then(() => {
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
+
+
+//Connect to the database before listening
+connectDB().then(() => {
   app.listen(PORT, () => {
-      console.log("Listening for requests");
+      console.log("Listening for requests on "+ PORT);
   })
 })
-
 
 
